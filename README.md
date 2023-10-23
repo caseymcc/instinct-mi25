@@ -1,6 +1,6 @@
 # How to work with the AMD Instinct MI-25
 
-First off I started my journey after watching Wendel on LevelOne techs on the MI-25, which led me to this post on their [forumns](https://forum.level1techs.com/t/mi25-stable-diffusions-100-hidden-beast/194172). Although it is a great post and I likely would not have gotten it working with out it, actually getting something running took a lot more than just that post.
+First off I started my journey after watching Wendel on [LevelOne Techs](https://www.level1techs.com/) on the MI-25, which led me to this post on their [forums](https://forum.level1techs.com/t/mi25-stable-diffusions-100-hidden-beast/194172). Although it is a great post and I likely would not have gotten it working with out it, actually getting something running took a lot more than just that post.
 
 First and foremost, you have to have a PC that supports both `4G Decoding` (likely `Resizable BAR` as well). I started with a PC without both, then one with `4G Decode` using an AMD A10 (which did not work) and finally got it working with the same motherboard with a Ryzen (Instead of the A10) which opend up the `Re Size BAR Support`.
 
