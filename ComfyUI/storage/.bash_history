@@ -1,0 +1,1 @@
+/home/scripts/entrypoint.sh 
