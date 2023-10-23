@@ -58,7 +58,8 @@ if [ ! "$exists" ]; then
     -p 8188:8188 \
     -v "$(pwd)"/storage:/home/runner \
     -v "$(pwd)"/scripts:/home/scripts \
-    --env CLI_ARGS="CUDA_VISIBLE_DEVICES=0 --use-pytorch-cross-attention" \
+    --env CLI_ARGS="--use-pytorch-cross-attention" \
+    --env CUDA_VISIBLE_DEVICES=0 \
     --device=/dev/kfd --device=/dev/dri \
     --security-opt seccomp=unconfined \
     --group-add video \
