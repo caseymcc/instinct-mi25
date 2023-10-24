@@ -110,7 +110,7 @@ GPU[1]		: Card SKU: 		CEZANN
 ============================= End of ROCm SMI Log ==============================
 
 ```
-to get a list of devices, this will show the `device index` used by anything calling ROCm. As you can see, although the `MI-25` is `Agent 3` it is seen as device `0` (`GPU[0]`). This can be helpfull as if you have multiple ROCm supported devices some of those devices may not be supported by the tools (pytorch, etc...) and you will need to force the tool to use a specific device/s.
+to get a list of devices, this will show the `device index` used by anything calling ROCm. As you can see, although the `MI-25` is `Agent 2` it is seen as device `0` (`GPU[0]`). This can be helpfull as if you have multiple ROCm supported devices some of those devices may not be supported by the tools (pytorch, etc...) and you will need to force the tool to use a specific device/s.
 
 ## ROCm with Docker/Pytorch
 
