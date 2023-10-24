@@ -17,9 +17,9 @@ If you are not planning to use the `MI-25` as a gpu then you can skip everything
 
 ## Installing Linux
 
-As the Levelone post notes you need spedific Linux kernels to get it working, AMD's ROCm only support certain [ones](https://rocm.docs.amd.com/en/latest/release/gpu_os_support.html). I can say for sure that you do not need the specific kernel called out in the post as mine is 5.15.0-XX. In the end I went with the Ubuntu version in the post however I ended up working fine on the updated Kernel it had (if I get a chance I want to try other versions)
+As the LevelOne Tech post notes you need specific Linux kernels to get it working, AMD's ROCm only supports certain [ones](https://rocm.docs.amd.com/en/latest/release/gpu_os_support.html). I can say for sure that you do not need the specific kernel called out in the post as mine is 5.15.0-XX. In the end I went with the Ubuntu version in the post however I ended up working fine on the updated Kernel it had (if I get a chance I want to try other versions)
 
-Grab the Unbuntu version `20.04.03` from [here](https://old-releases.ubuntu.com/releases/20.04.3/). It comes with the kernel version
+Grab the Ubuntu version `20.04.03` from [here](https://old-releases.ubuntu.com/releases/20.04.3/). It comes with the kernel version
 ```
 Linux zeus 5.15.0-87-generic #97~20.04.1-Ubuntu SMP Thu Oct 5 08:25:28 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
 ```
@@ -29,7 +29,7 @@ Again not sure if other kernels can be handled yet so it is in your best interes
 
 You will need to install ROCm, get the [5.2.5 deb](http://repo.radeon.com/amdgpu-install/22.20.5/ubuntu/focal/). Support for the `MI-25` has been discontinued after `ROCm 4.5.2` however this version seems to still supported it (later version need to be tested as well). [AMD's install instructions](https://rocm.docs.amd.com/en/latest/deploy/linux/installer/install.html)
 
-Once the downloaded completes you can then install it with the following
+Once the download completes you can then install it with the following
 ```
 sudo dpkg -i amdgpu-install_22.20.50205-1_all.deb
 ```
@@ -41,8 +41,8 @@ the post list more usecases, however it seems rocm covers all those cases as all
 
 When the install is complete, you need to add the current user to the `video` and `render` groups.
 ```
-sudo usermod -a -G video
-sudo usermod -a -G render
+sudo usermod -a -G video $USER
+sudo usermod -a -G render $USER
 ```
 Now make sure to reboot the system. After the reboot you can check if ROCm is able to talk with the `MI-25` using the following
 
@@ -91,7 +91,7 @@ Agent 2 - Integrated GPU
 Agent 3 - MI-25
 ```
 
-You can also use
+You can also use the following
 ```
 /opt/rocm/bin/rocm-smi --showproductname
 
@@ -110,7 +110,7 @@ GPU[1]		: Card SKU: 		CEZANN
 ============================= End of ROCm SMI Log ==============================
 
 ```
-To get a list of devices, this will show the `device index` used by anything calling ROCm. As you can see, although the `MI-25` is `Agent 3` it is seen as device `0` (`GPU[0]`). This can be helpfull as if you have multiple ROCm supported devices those device may not be supported by the tools (pytorch, etc...) and you will need to force the tool to use a specific device.
+to get a list of devices, this will show the `device index` used by anything calling ROCm. As you can see, although the `MI-25` is `Agent 3` it is seen as device `0` (`GPU[0]`). This can be helpfull as if you have multiple ROCm supported devices some of those devices may not be supported by the tools (pytorch, etc...) and you will need to force the tool to use a specific device/s.
 
 ## ROCm with Docker/Pytorch
 
@@ -129,7 +129,7 @@ Once in the docker you should be able to run the above `/opt/rocm/bin/rocminfo`/
 Working on it
 
 ## Runing ConfyUI
-I started with the dockers/scripts from [YanWenKan/ComfyUI-Docker](https://github.com/YanWenKun/ComfyUI-Docker), however I ran into a few issues so I altered it to what is in this repo.
+I started with the dockers/scripts from [YanWenKan/ComfyUI-Docker](https://github.com/YanWenKun/ComfyUI-Docker), however I ran into a few issues so I changed to what is in this repo.
 
 Main things:
 - Use Ubuntu base
