@@ -2,7 +2,7 @@
 
 First off I started my journey after watching Wendell on [LevelOne Techs](https://www.level1techs.com/) on the MI-25, which led me to this post on their [forums](https://forum.level1techs.com/t/mi25-stable-diffusions-100-hidden-beast/194172). Although it is a great post and I likely would not have gotten it working with out it, actually getting something running took a lot more than just that post.
 
-First and foremost, you have to have a PC that supports both `4G Decoding` (likely `Resizable BAR` as well). I started with a PC without both, then one with `4G Decode` using an AMD A10 (which did not work) and finally got it working with the same motherboard with a Ryzen (Instead of the A10) which opend up the `Re Size BAR Support`.
+First and foremost, you have to have a PC that supports both `4G Decoding` and `Resizable BAR`. I started with a PC without both, then one with `4G Decode` using an AMD A10 (which did not work) and finally got it working with the same motherboard with a Ryzen (Instead of the A10) which opend up the `Re Size BAR Support`.
 
 You need to set the following in the bios, each bios varies so it will be something like the below.
 
@@ -13,11 +13,11 @@ Re Size BAR Support - Enabled
 CSM - Disabled
 ```
 
-If you are not planning to use the `MI-25` as a gpu then you can skip everything about changing the bios. I did not test the bios changes as I never planned to use it as a gpu.
+If you are not planning to use the `MI-25` as a gpu with video out, then you can skip everything about changing the bios. I did not test the bios changes as I never planned to use it as video out.
 
 ## Installing Linux
 
-As the LevelOne Tech post notes you need specific Linux kernels to get it working, AMD's ROCm only supports certain [ones](https://rocm.docs.amd.com/en/latest/release/gpu_os_support.html). I can say for sure that you do not need the specific kernel called out in the post as mine is 5.15.0-XX. In the end I went with the Ubuntu version in the post however I ended up working fine on the updated Kernel it had (if I get a chance I want to try other versions)
+As the LevelOne Tech post notes you need specific Linux kernels to get it working, AMD's ROCm only supports certain [ones](https://rocm.docs.amd.com/en/latest/release/gpu_os_support.html). I can say for sure that you do not need the specific kernel called out in the post as mine is 5.15.0-XX. In the end I went with the Ubuntu version (20.04.03) in the post however I ended up working fine on the updated Kernel it had (if I get a chance I want to try other versions)
 
 Grab the Ubuntu version `20.04.03` from [here](https://old-releases.ubuntu.com/releases/20.04.3/). It comes with the kernel version
 ```
@@ -27,7 +27,7 @@ Again not sure if other kernels can be handled yet so it is in your best interes
 
 ## Installing ROCm
 
-You will need to install ROCm, get the [5.2.5 deb](http://repo.radeon.com/amdgpu-install/22.20.5/ubuntu/focal/). Support for the `MI-25` has been discontinued after `ROCm 4.5.2` however this version seems to still supported it (later version need to be tested as well). [AMD's install instructions](https://rocm.docs.amd.com/en/latest/deploy/linux/installer/install.html)
+You will need to install ROCm, get the [5.2.5 deb](http://repo.radeon.com/amdgpu-install/22.20.5/ubuntu/focal/). Support for the `MI-25` has been discontinued after `ROCm 4.5.2` however this version seems to still support it (later versions need to be tested as well). [AMD's install instructions](https://rocm.docs.amd.com/en/latest/deploy/linux/installer/install.html)
 
 Once the download completes you can then install it with the following
 ```
@@ -87,8 +87,8 @@ Agent 3
 You can see that on my machine ROCm has picked up the
 ```
 Agent 1 - CPU
-Agent 2 - Integrated GPU
-Agent 3 - MI-25
+Agent 2 - MI-25
+Agent 3 - Integrated GPU
 ```
 
 You can also use the following
@@ -196,7 +196,7 @@ This is likely caused by `pytorch` trying to open an unsupported device. You can
 ```
 export CUDA_VISIBLE_DEVICES=0
 ```
-you can also add the above to the `./run_docker.sh` vi the `CLI_ARGS`
+you can also add the above to the `./run_docker.sh` vi `--env`
 ```
 docker create -it --name $CONTAINER_NAME \
     ...
